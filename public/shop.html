@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | ShopNova</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .shop-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        .main-content {
+            flex: 1;
+        }
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+        .filter-group h4 {
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .sort-select {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--surface-color);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Shop<span>Nova</span></a>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <button><i class="fas fa-search"></i></button>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            <div class="nav-icons">
+                <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
+                <a href="login.html" class="nav-link"><i class="far fa-user"></i> <span>Login</span></a>
+                <a href="wishlist.html" class="nav-link"><i class="far fa-heart"></i> <span>Wishlist</span></a>
+                <a href="cart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container shop-container">
+        <aside class="sidebar">
+            <h3>Filters</h3>
+            <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border-color);">
+            
+            <div class="filter-group">
+                <h4>Category</h4>
+                <div id="categoryFilter">
+                    <!-- Checkboxes injected by JS -->
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="number" id="minPrice" placeholder="Min" style="width: 100%; padding: 0.5rem;">
+                    <input type="number" id="maxPrice" placeholder="Max" style="width: 100%; padding: 0.5rem;">
+                </div>
+                <button onclick="applyFilters()" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.5rem;">Apply Price</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="shop-header">
+                <h2>Products</h2>
+                <select id="sortSelect" class="sort-select" onchange="applyFilters()">
+                    <option value="newest">Newest Arrivals</option>
+                    <option value="priceAsc">Price: Low to High</option>
+                    <option value="priceDesc">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                </select>
+            </div>
+            <div class="product-grid" id="productsGrid">
+                <!-- Products injected by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>ShopNova</h3>
+                    <p>Your ultimate shopping destination for everything you love.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopNova. All rights reserved.</p>
+                <p style="margin-top: 10px; font-weight: bold; color: var(--primary-color);">Managed by - Rajkumar Meshram</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/products.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist | ShopNova</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Shop<span>Nova</span></a>
+            <div class="nav-icons">
+                <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
+                <a href="login.html" class="nav-link"><i class="far fa-user"></i> <span>Login</span></a>
+                <a href="wishlist.html" class="nav-link" style="color: var(--primary-color)"><i class="fas fa-heart"></i> <span>Wishlist</span></a>
+                <a href="cart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 4rem 1.5rem; min-height: 60vh;">
+        <h2 style="margin-bottom: 2rem;">My Wishlist</h2>
+        <div class="product-grid" id="wishlistGrid">
+            <!-- Wishlist items injected here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>ShopNova</h3>
+                    <p>Your ultimate shopping destination for everything you love.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopNova. All rights reserved.</p>
+                <p style="margin-top: 10px; font-weight: bold; color: var(--primary-color);">Managed by - Rajkumar Meshram</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wishlistGrid = document.getElementById('wishlistGrid');
+            
+            function renderWishlistPage() {
+                if (wishlist.length === 0) {
+                    wishlistGrid.innerHTML = '<p>Your wishlist is empty. <a href="shop.html" style="color:var(--primary-color)">Go shopping</a>.</p>';
+                    return;
+                }
+
+                wishlistGrid.innerHTML = wishlist.map(p => {
+                    return `
+                    <div class="product-card">
+                        <a href="product.html?id=${p._id}">
+                            <img src="${p.image}" alt="${p.name}" class="product-image">
+                        </a>
+                        <div class="product-info">
+                            <div class="product-category">${p.category}</div>
+                            <a href="product.html?id=${p._id}">
+                                <h3 class="product-title">${p.name}</h3>
+                            </a>
+                            <div class="product-price">${formatPrice(p.price, p.discountPercentage)}</div>
+                            <div class="product-actions">
+                                <button class="btn-cart" onclick='addToCart(${JSON.stringify(p).replace(/'/g, "&#39;")})'>Add to Cart</button>
+                                <button class="btn-wishlist active" onclick='removeFromWishlistPage("${p._id}")'>
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                }).join('');
+            }
+
+            window.removeFromWishlistPage = function(id) {
+                const index = wishlist.findIndex(item => item._id === id);
+                if (index > -1) {
+                    wishlist.splice(index, 1);
+                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                    showToast('Removed from Wishlist');
+                    renderWishlistPage();
+                }
+            };
+
+            renderWishlistPage();
+        });
+    </script>
+</body>
+</html>

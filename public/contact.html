@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | ShopNova</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Shop<span>Nova</span></a>
+            <div class="nav-icons">
+                <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
+                <a href="cart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 4rem 1.5rem; min-height: 60vh;">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <h1 style="font-size: 3rem; margin-bottom: 2rem; color: var(--primary-color); text-align: center;">Contact Us</h1>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            
+            <form style="background: var(--surface-color); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-md);" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Full Name</label>
+                    <input type="text" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-primary);" required>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Email Address</label>
+                    <input type="email" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-primary);" required>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Message</label>
+                    <textarea rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-primary); resize: vertical;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>ShopNova</h3>
+                    <p>Your ultimate shopping destination for everything you love.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopNova. All rights reserved.</p>
+                <p style="margin-top: 10px; font-weight: bold; color: var(--primary-color);">Managed by - Rajkumar Meshram</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

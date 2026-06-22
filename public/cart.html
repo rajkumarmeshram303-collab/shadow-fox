@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | ShopNova</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cart-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+        .cart-items {
+            flex: 2;
+        }
+        .cart-summary {
+            flex: 1;
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--surface-color);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .qty-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        .remove-btn {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        @media (max-width: 768px) {
+            .cart-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Shop<span>Nova</span></a>
+            <div class="nav-icons">
+                <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
+                <a href="login.html" class="nav-link"><i class="far fa-user"></i> <span>Login</span></a>
+                <a href="wishlist.html" class="nav-link"><i class="far fa-heart"></i> <span>Wishlist</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container cart-container">
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Cart items injected here -->
+        </div>
+        <div class="cart-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-row" style="margin-top: 1.5rem;">
+                <span>Items (<span id="summaryCount">0</span>)</span>
+                <span id="summarySubtotal">Rs. 0</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            
+            <div style="margin-top: 1.5rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="couponCode" placeholder="Enter Coupon (e.g. SAVE20)" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    <button class="btn btn-primary" onclick="applyCoupon()" style="padding: 0.5rem 1rem;">Apply</button>
+                </div>
+                <div id="couponMsg" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--secondary-color); display: none;"></div>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="summaryTotal">Rs. 0</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1rem;" onclick="proceedToCheckout()" id="checkoutBtn">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>ShopNova</h3>
+                    <p>Your ultimate shopping destination for everything you love.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopNova. All rights reserved.</p>
+                <p style="margin-top: 10px; font-weight: bold; color: var(--primary-color);">Managed by - Rajkumar Meshram</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+    <script>
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const summaryCount = document.getElementById('summaryCount');
+        const summarySubtotal = document.getElementById('summarySubtotal');
+        const summaryTotal = document.getElementById('summaryTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        let discount = 0;
+
+        function renderCart() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty. <a href="shop.html" style="color:var(--primary-color)">Go shopping</a>.</p>';
+                checkoutBtn.disabled = true;
+            } else {
+                checkoutBtn.disabled = false;
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">Rs. ${item.price.toLocaleString('en-IN')}</div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `).join('');
+            }
+            updateSummary();
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) {
+                removeItem(index);
+            } else {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+                updateCartBadge();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            updateCartBadge();
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('couponCode').value.toUpperCase();
+            const msg = document.getElementById('couponMsg');
+            
+            if (code === 'SAVE20') {
+                discount = 0.2; // 20% off
+                msg.style.display = 'block';
+                msg.innerText = 'Coupon applied! 20% off.';
+                msg.style.color = 'var(--secondary-color)';
+            } else {
+                discount = 0;
+                msg.style.display = 'block';
+                msg.innerText = 'Invalid coupon code.';
+                msg.style.color = 'var(--danger)';
+            }
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const count = cart.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+            const finalTotal = subtotal * (1 - discount);
+
+            summaryCount.innerText = count;
+            
+            if (discount > 0) {
+                summarySubtotal.innerHTML = `<del>Rs. ${subtotal.toLocaleString('en-IN')}</del> Rs. ${finalTotal.toLocaleString('en-IN')}`;
+            } else {
+                summarySubtotal.innerText = 'Rs. ' + subtotal.toLocaleString('en-IN');
+            }
+            
+            summaryTotal.innerText = 'Rs. ' + finalTotal.toLocaleString('en-IN');
+            localStorage.setItem('cartTotal', finalTotal);
+        }
+
+        function proceedToCheckout() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                showPopup(
+                    'Login Required', 
+                    'You need to be logged in to proceed to checkout and place your order.',
+                    'auth',
+                    'Go to Login',
+                    'login.html?redirect=cart'
+                );
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+</body>
+</html>

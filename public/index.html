@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopNova | Modern E-Commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">SHOPNOVA</a>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for products, brands and more...">
+                <button><i class="fas fa-search"></i></button>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <div class="nav-icons">
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <a href="login.html" class="nav-link" id="authLink"><i class="far fa-user"></i> <span id="authText">Profile</span></a>
+                <a href="wishlist.html" class="nav-link"><i class="far fa-heart"></i> <span>Wishlist</span></a>
+                <a href="cart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                    <span>Bag</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Categories Nav -->
+    <div class="categories-nav">
+        <ul>
+            <li><a href="shop.html?category=Fashion">MEN</a></li>
+            <li><a href="shop.html?category=Fashion">WOMEN</a></li>
+            <li><a href="shop.html?category=Footwear">KIDS</a></li>
+            <li><a href="shop.html?category=Home & Kitchen">HOME & LIVING</a></li>
+            <li><a href="shop.html?category=Accessories">BEAUTY</a></li>
+            <li><a href="shop.html?category=Electronics">STUDIO</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Discover the New Standard of Shopping</h1>
+            <p>Explore our premium collection of electronics, fashion, and more. Curated just for you.</p>
+            <a href="shop.html" class="btn btn-primary">Shop Now</a>
+        </div>
+    </header>
+
+    <!-- Featured Products -->
+    <section class="section featured-products" style="padding-top: 2rem;">
+        <div class="container">
+            <h2 class="section-title" style="text-align: left; letter-spacing: 2px; font-size: 1.8rem;">RISING STARS</h2>
+            <div class="product-grid" id="featuredProducts">
+                <!-- Products will be injected here via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>ShopNova</h3>
+                    <p>Your ultimate shopping destination for everything you love.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopNova. All rights reserved.</p>
+                <p style="margin-top: 10px; font-weight: bold; color: var(--primary-color);">Managed by - Rajkumar Meshram</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>
